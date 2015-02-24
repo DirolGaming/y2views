@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<title>Y2Views</title>
+		<!-- 2 defs because to make some dumb brosers still get favicon -->
+		<link rel="shortcut" type="image/ico" href="favicon.ico" />
+		<link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+		<link rel="stylesheet" href="http://static.mikroskeem.eu/progress.js/minified/progressjs.min.css" type="text/css" />
+		<script src="/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://static.mikroskeem.eu/progress.js/minified/progress.min.js" chatset="utf-8"></script>
+		<script src="http://www.youtube.com/player_api" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/js/new_main.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+#overlay {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	background: #000;
+	opacity: 1.0;
+	filter: alpha(opacity=80);
+}
+#loading {
+	width: 50px;
+	height: 57px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -28px 0 0 -25px;
+}
+
+		</style>
+	</head>
+	<body>
+		<div id="loginform">
+			<h1>Login</h1>
+			<form action="/" method="get" onSubmit="flogin(); return false">
+				Username: <input type="text" name="username" required />
+				<br>
+				Password: <input type="password" name="password" required />
+				<br>
+				<input type="submit" />
+			</form>
+			<h1>Register</h1>
+			<form action="/" method="get" onSubmit="fregister(); return false">
+				Username: <input type="text" name="nusername" required />
+				<br>
+				Password: <input type="password" name="npassword" required /><br>
+				Password again: <input type="password" name="npassword2" required />
+				<br>
+				<input type="submit" />
+			</form>
+
+		</div>
+		<div id="main">
+			<h1>Logged in as <span id="name"></span></h1><br>
+			<button onClick='logout()'>Logout</button><br>
+			<button onClick='getvideos()'>Get videos</button><br>
+                        <button onClick='addvideo(prompt("Youtube video URL"))'>Add video</button>
+			<ul id="videolist">
+			</ul>
+		</div>
+		<div id="overlay"><span id="loading"><img src="/static/img/loading4.gif"></img></span></div>
+	</body>
+</html>

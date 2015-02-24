@@ -1,0 +1,43 @@
+{
+  "name": "Y2Views",
+  "version": "0.0.1",
+  "description": "Y2Views",
+  "keywords": [
+    "Node.js"
+  ],
+  "author": {
+    "name": "mikroskeem",
+    "email": "mikroskeem@mikroskeem.eu",
+    "url": "http://y2views.tk/"
+  },
+  "homepage": "http://y2views.tk/",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "browserchannel": "~2.0.0",
+    "bson": "^0.2.19",
+    "coffee-script": "^1.9.1",
+    "ejs": "~1.0.0",
+    "express": "~3.4.4",
+    "mongodb": "~1.4.17",
+    "node-uuid": "~1.4.1",
+    "primus": "~2.4.7",
+    "primus-callbacks": "~2.1.3",
+    "primus-emitter": "~3.0.3",
+    "primus-multiplex": "~3.0.3",
+    "primus-rooms": "~3.1.0",
+    "primus.io": "~3.1.2",
+    "sha256": "~0.1.1",
+    "ws": "~0.4.32"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "private": true,
+  "main": "server.js"
+}

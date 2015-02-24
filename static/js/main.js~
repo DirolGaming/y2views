@@ -1,0 +1,202 @@
+var primus,
+    player,
+    loadingscreen,
+    user,
+    playerd,
+    purl = window.location.href + "json",
+    testvideos = [{"videoId": "BniV6jyIDPQ"}, {"videoId": "2WbhWwiH53A"}, {"videoId": "VWPFY5-v6ag"}, {"videoId": "tFOmzhIDvMs"}];
+
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}};
+var Sha256={};Sha256.hash=function(msg,utf8encode){utf8encode=typeof utf8encode=="undefined"?true:utf8encode;if(utf8encode)msg=Utf8.encode(msg);var K=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298];var H=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225];msg+=String.fromCharCode(128);var l=msg.length/4+2;var N=Math.ceil(l/16);var M=new Array(N);for(var i=0;i<N;i++){M[i]=new Array(16);for(var j=0;j<16;j++){M[i][j]=msg.charCodeAt(i*64+j*4)<<24|msg.charCodeAt(i*64+j*4+1)<<16|msg.charCodeAt(i*64+j*4+2)<<8|msg.charCodeAt(i*64+j*4+3)}}M[N-1][14]=(msg.length-1)*8/Math.pow(2,32);M[N-1][14]=Math.floor(M[N-1][14]);M[N-1][15]=(msg.length-1)*8&4294967295;var W=new Array(64);var a,b,c,d,e,f,g,h;for(var i=0;i<N;i++){for(var t=0;t<16;t++)W[t]=M[i][t];for(var t=16;t<64;t++)W[t]=Sha256.sigma1(W[t-2])+W[t-7]+Sha256.sigma0(W[t-15])+W[t-16]&4294967295;a=H[0];b=H[1];c=H[2];d=H[3];e=H[4];f=H[5];g=H[6];h=H[7];for(var t=0;t<64;t++){var T1=h+Sha256.Sigma1(e)+Sha256.Ch(e,f,g)+K[t]+W[t];var T2=Sha256.Sigma0(a)+Sha256.Maj(a,b,c);h=g;g=f;f=e;e=d+T1&4294967295;d=c;c=b;b=a;a=T1+T2&4294967295}H[0]=H[0]+a&4294967295;H[1]=H[1]+b&4294967295;H[2]=H[2]+c&4294967295;H[3]=H[3]+d&4294967295;H[4]=H[4]+e&4294967295;H[5]=H[5]+f&4294967295;H[6]=H[6]+g&4294967295;H[7]=H[7]+h&4294967295}return Sha256.toHexStr(H[0])+Sha256.toHexStr(H[1])+Sha256.toHexStr(H[2])+Sha256.toHexStr(H[3])+Sha256.toHexStr(H[4])+Sha256.toHexStr(H[5])+Sha256.toHexStr(H[6])+Sha256.toHexStr(H[7])};Sha256.ROTR=function(n,x){return x>>>n|x<<32-n};Sha256.Sigma0=function(x){return Sha256.ROTR(2,x)^Sha256.ROTR(13,x)^Sha256.ROTR(22,x)};Sha256.Sigma1=function(x){return Sha256.ROTR(6,x)^Sha256.ROTR(11,x)^Sha256.ROTR(25,x)};Sha256.sigma0=function(x){return Sha256.ROTR(7,x)^Sha256.ROTR(18,x)^x>>>3};Sha256.sigma1=function(x){return Sha256.ROTR(17,x)^Sha256.ROTR(19,x)^x>>>10};Sha256.Ch=function(x,y,z){return x&y^~x&z};Sha256.Maj=function(x,y,z){return x&y^x&z^y&z};Sha256.toHexStr=function(n){var s="",v;for(var i=7;i>=0;i--){v=n>>>i*4&15;s+=v.toString(16)}return s};var Utf8={};Utf8.encode=function(strUni){var strUtf=strUni.replace(/[\u0080-\u07ff]/g,function(c){var cc=c.charCodeAt(0);return String.fromCharCode(192|cc>>6,128|cc&63)});strUtf=strUtf.replace(/[\u0800-\uffff]/g,function(c){var cc=c.charCodeAt(0);return String.fromCharCode(224|cc>>12,128|cc>>6&63,128|cc&63)});return strUtf};Utf8.decode=function(strUtf){var strUni=strUtf.replace(/[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,function(c){var cc=(c.charCodeAt(0)&15)<<12|(c.charCodeAt(1)&63)<<6|c.charCodeAt(2)&63;return String.fromCharCode(cc)});strUni=strUni.replace(/[\u00c0-\u00df][\u0080-\u00bf]/g,function(c){var cc=(c.charCodeAt(0)&31)<<6|c.charCodeAt(1)&63;return String.fromCharCode(cc)});return strUni};
+var tostr=function(e){return JSON.stringify(e);}
+var loading=function(){var a=document.getElementById("loadingdots"),b=0;loadingscreen=setInterval(function(){if(a.innerHTML.length==3){a.innerHTML="";}else{a.innerHTML+=".";};b++;},250);};
+var shufArr=function(a){var i,j,b;for(i=a.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));b=a[i];a[i]=a[j];a[j]=b;};return a;};
+var valEmail=function(a){var b;b=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;return b.test(a);};
+if(!(Cookies.enabled)) window.location.href="/enable-cookies";
+
+if(localStorage["1mg00dhex0r"]=="true"){
+	try {
+		user = JSON.parse(Base64.decode(Cookies.get("user")));
+	} catch(e) {
+		user = {};
+	}
+	window.onunload = function(){
+		Cookies.set("user", Base64.encode(tostr(user)));
+	}
+}
+
+var tabs={init: function(){
+	var g=window.location.hash.substring(1);
+	if(g!=""){
+		$('#maintabs li a[href="#'+g+'"]').tab("show");
+	};
+	$(".nav li a").click(function(e){
+		e.preventDefault();
+		$(this).tab("show");
+		window.location.hash=this.hash;
+	});
+	if(localStorage["1mg00dhex0r"]=="true"){
+		$("#maintabs").append('<li><a href="javascript:void(0)" data-toggle="tab2" onClick="$(\'#devmodal\').modal()">Dev menu</a></li>');
+	}
+	},
+	switch: function(a){
+		if(a){
+			$('#maintabs li a[href="#'+a+'"]').tab("show");
+			window.location.hash="#" + a;
+		}
+	}
+};
+
+
+var ubuntu = {
+	yes: function(){
+		$(document.body).attr("style", "font-family:'Ubuntu',sans-serif;")
+		localStorage["ilikeubuntu"]=true;
+	},
+	no: function() {
+		$(document.body).attr("style", "font-family:'Josefin Sans',sans-serif;")
+		localStorage["ilikeubuntu"]=false;
+	},
+	check: function(){
+		if(localStorage["ilikeubuntu"]=="true"){
+			$(document.body).attr("style", "font-family:'Ubuntu',sans-serif;")
+		} else {
+			$(document.body).attr("style", "font-family:'Josefin Sans',sans-serif;")
+		}
+	}
+}
+function onYouTubePlayerAPIReady() {
+    var ytp = new YT.Player('ytplayer', {height: '200', width: '200', events: {"onReady": onPlayerReady}, controls: 0});
+    player = new ytplayer(ytp);
+}
+function onPlayerReady(event) {
+    event.target.mute();
+}
+
+var forms = {
+	login: function(a,b){
+		User.login(a,b,function(data){
+			console.log(data)
+			var userbtn=$('#logged-in-tab-button').children()[0];
+			$('#login-tab-button').hide(100);
+			$(userbtn).text(a);
+			$('#logged-in-tab-button').show(100);
+			tabs.switch('logged-in');
+//			message.error("Login failed");
+		});
+	},
+	logout: function(a){
+	}
+};
+var User = {
+    login: function(a,b,c) {
+        if(!(a) || !(b) || !(c)) return false;
+        $.get(purl, {action: "login", data: {user: a, pw: Sha256.hash(b)}}, c);
+    },
+    logout: function(a,b) {
+        if(!(a) || !(b)) return false;
+        $.get(purl, {"action": "logout"}, b);
+    },
+    chkl: function(a,b) {
+        if(!(a) || !(b)) return false;
+        $.get(purl, {"action": "chkl"}, b);
+    },
+    addu: function(a,b,c,d) {
+        if(!(a) || !(b) || !(c) || !(d)) return false;
+        if(!(valEmail(c))) { message.error('Email "' + c + '" was invalid, please try again!'); return false};
+        $.get(purl, {"action": "addu", "data": {"username": a, "password": Sha256.hash(b), "email": c}}, d);
+    },
+    delu: function(a,b){
+        if(!(a) || !(b)) return false;
+        $.get(purl, {"action": "delu", "data": {"username": a}}, b);
+    },
+    cpw: function(a,b,c,d){
+        if(!(a) || !(b) || !(c) || !(d)) return false;
+	if(!(b == c)) return false;
+        $.get(purl, {"action": "cpw", "data": {"username": a, "password": Sha256.hash(b)}}, d);
+    },
+    addv: function(a,b){
+        if(!(a) || !(b)) return false;
+        $.get(purl, {"action": "addv", "data": {"video_url": a}}, b);
+    },
+    delv: function(a,b){
+        if(!(a) || !(b)) return false;
+        $.get(purl, {"action": "delv", "data": {"video_id": a}}, b);
+    }
+}
+var message = {
+    _template: function(a,b){var c=document.createElement("div"),d=document.createElement("span"),e=document.createElement("a");c.className="alert " + a;$(c).attr("role", "alert");d.innerHTML=b;$(e).attr("onClick", "message.close(this)");e.className="pull-right";e.innerHTML="&times;";e.href="javascript:void(0)";$(c).append(d);$(c).append(e);return c;},
+    success: function(a){$("#messages").append(this._template("alert-success", a));},
+    error: function(a){$("#messages").append(this._template("alert-danger", a));},
+    info: function(a){$("#messages").append(this._template("alert-info", a));},
+    close: function(a){var b=a.parentNode;b.parentNode.removeChild(b);}
+};
+
+
+function ytplayer(a){
+	this.player = a;
+	this.init = function() {
+		if(!window["YT"]){
+			throw "Youtube player wrapper requires Google Youtube API";
+		}
+		if(!typeof a == "object"){
+			throw "Youtube player wrapper requires first arg to be player object";
+		}
+		this.player.addEventListener("onStateChange", 'playerstate')
+	}
+	this.init();
+	this.statuses = ["NOTSTARTED", "PLAYING", "PAUSED", "STOPPED", "ERROR", "LOADED"]
+	this.status = {"video": {"id": ""},"state": "NOTSTARTED"};
+	this.loadAndPlayVideo = function(a){if(typeof a == "object"){if(a.id){var ssec = a.startsec || 0;var esec = a.endsec || undefined;this.player.cueVideoById({"videoId": a.id, "startSeconds": ssec, "endSeconds": esec});this.play()} else {throw 'loadAndPlayVideo({"id":<>, ["startsec":<>], ["endsec":<>]})';}} else {throw 'loadAndPlayVideo argument should be object, {"id":<>, ["startsec":<>], ["endsec":<>]}';}}
+	this.loadVideo = function(a){if(typeof a == "object"){if(a.id){var ssec = a.startsec || 0;var esec = a.endsec || undefined;this.player.cueVideoById({"videoId": a.id, "startSeconds": ssec, "endSeconds": esec});} else {throw 'loadVideo({"id":<>, ["startsec":<>], ["endsec":<>]})'}} else {throw 'loadVideo argument should be object, {"id":<>, ["startsec":<>], ["endsec":<>]}';}}
+	this.play = function(){this.player.playVideo();}
+	this.stop = function(){this.player.stop();}
+	this.skip = function(){this.player.seekTo(this.player.getDuration())};
+	this.pause = function(){this.player.pauseVideo()}
+}
+var playerstate = function(b){
+	var a = b.target.A.playerState; // wat ?
+	if(a == "0"){
+		player.status.state = "STOPPED";
+	} else if(a == "1"){
+		player.status.state = "PLAYING";
+	} else if(a == "2") {
+		player.status.state = "PAUSED";
+	} else if(a == "5") {
+		player.status.state = "LOADED";
+	}
+}
+
+
+var watcher = function(a){
+	var i = 0, playlist = [];
+	a.forEach(function(c){playlist[playlist.length] = c.videoId;}); // convert object to array what we can easily use
+	playlist = shufArr(playlist);
+	playerd = setInterval(function(){
+		if(player.status.state == "NOTSTARTED"){
+			player.loadAndPlayVideo({"id": playlist[i], endsec: 35});
+		} else if(player.status.state == "STOPPED"){
+			i++;
+			player.loadAndPlayVideo({"id": playlist[i], endsec: 35});
+		} else if(player.status.state == "LOADED"){
+			player.play();
+		} else if(playlist.length-1 == i) {
+			i = 0;
+		}
+	}, 500);
+};
+
+/*
+    a.forEach(function(c){b[b.length] = c.videoId;});
+    b = shufArr(b);
+    watcher_data.video.id = b[0];
+    player.cueVideoById({'videoId': watcher_data.video.id, "endSeconds": 65});
+*/
+
+
+$(document).ready(function(){
+    loading();
+    tabs.init();
+    ubuntu.check();
+    clearInterval(loadingscreen), $("#overlay").hide();
+});

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Y2Views">
+    <meta name="author" content="mikroskeem">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>Y2Views</title>
+    <script src="/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.compat.js" type="text/javascript" charset="utf-8"></script>-->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/cookies.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="http://www.youtube.com/player_api" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/main.js" type="text/javascript" charset="utf-8"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <link href="/static/css/main.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <div class="header">
+                <ul class="nav nav-pills pull-right" id="maintabs">
+                    <li class="active"><a href="#desc" data-toggle="tab2">What is this thing?</a>
+                    </li>
+                    <li><a href="#service-info" data-toggle="tab2">Service Info</a>
+                    </li>
+                    <li><a href="#about" data-toggle="tab2">About</a>
+                    </li>
+                    <li id="login-tab-button"><a href="#login" data-toggle="tab2">Register/Login</a>
+                    </li>
+                    <li id="logged-in-tab-button" style="display: none;">
+                        <a href="#logged-in" data-toggle="tab2"></a>
+                    </li>
+                </ul>
+                <h3 class="text-muted">Y2Views</h3>
+            </div>
+            <div id="messages">
+            </div>
+            <div class="tab-content">
+                <div id="desc" class="tab-pane fade in active">
+                    <div class="page-header" style="border-bottom:0px;">
+                        <h1 class="text-center">What is this thing? <small>And what does it do?</small></h1>
+                    </div>
+                    <p>
+                        Are you tired of low youtube views on your videos? View generators get stuck at ~301 views? We have solution!
+                        <br>That's why we made this, to get more views for your videos.
+                        <br>No matter that you have ugly or lame videos, we get you some views.
+                        <br>
+                        <a href="http://y2views.freeforums.net/thread/12/rules">Y2Views rules!!</a>
+                        <br>Forum: <a href="http://y2views.freeforums.net">http://y2views.freeforums.net/</a>
+                    </p>
+                </div>
+                <div class="row marketing tab-pane fade" id="service-info">
+                    <div class="col-sm-6">
+                        <h3>Users</h3>
+                        <p class="row">
+                            <h4>Registred:</h4>
+                            <span>[TODO]</span>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Videos</h3>
+                        <p class="row">
+                            <h4>Current videos in database:</h4>
+                            <span>[TODO]</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="login">
+                    <div id="signin_container" class="container">
+                        <center>
+                            <h2 class="form-signin-heading">Please log in <small id="swr" class="text-muted"><a href="javascript:void(0)" onClick='$("#signin_container").hide(100);$("#register_container").show(100);'>But I want to register</a></small></h2>
+                        </center>
+                        <form action="/" class="form-group form-signin" onSubmit="
+var uname=$('#uname').val();
+var pw=$('#pw').val();
+forms.login(uname,pw);
+return false;
+
+">
+                            <input id="uname" type="text" class="form-control" placeholder="User name" required />
+                            <input id="pw" type="password" class="form-control" placeholder="Password" required />
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Log in</button>
+                        </form>
+                    </div>
+                    <div style="display: none;" id="register_container" class="container">
+                        <center>
+                            <h2 class="form-signin-heading">Please register <small id="swl" class="text-muted"><a href="javascript:void(0)" onClick='$("#register_container").hide(100);$("#signin_container").show(100);'>But I want to login</a></small></h2>
+                        </center>
+                        <form action="/" class="form-group form-signin" onSubmit="
+
+
+if(
+  User.addu($('#nuname').val(), $('#npw').val(), $('#nemail').val()) == true){
+    $('#register_container').hide(100);
+    $('#signin_container').show(100);
+  }
+else {
+  message.error('User adding failed');
+};
+return false;
+
+
+">
+                            <input id="nuname" type="text" class="form-control" placeholder="User name" required />
+                            <input id="nemail" type="email" class="form-control" placeholder="Email address" required />
+                            <input id="npw" type="password" class="form-control" placeholder="Password" required />
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="logged-in">
+                    <div class="container">
+                        <div id="be4ytplayer" class="pull-right"><span id="ytplayer"></span>
+                            <br><span style="color: red">Please do not touch the player!!!</span>
+                        </div>
+                        <p><a href="javascript:void(0)" onClick='addvideo(prompt("Video url"));'>Add video</a>
+                        </p>
+                        <p><a href="javascript:void(0)" onClick="alert('Oh snap this isn\'t implemented yet :/')">Show current videos</a>
+                        </p>
+                        <p><a id="start_watch" href="javascript:void(0)" onClick="watcher(testvideos)">Start watching (DEMO)</a>
+                        </p>
+                        <p><a style="display: none;" id="stop_watch" href="javascript:void(0)">Stop watching</a>
+                        </p>
+                        <p><a id="skip_watch" href="javascript:void(0)">Skip this video</a>
+                        </p>
+                        <p><a href="/logout">Log out</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row marketing tab-pane fade" id="about">
+                    <div class="col-sm-6">
+                        <h3>mikroskeem</h3>
+                        <p class="row">
+                            <h4>Contact:</h4>
+                            <p><a href="https://twitter.com/Mikroskeem">Twitter</a>
+                            </p>
+                            <p><a href="https://plus.google.com/u/0/+MarkVainomaaonpro/posts">Google+</a>
+                            </p>
+                            <p><a href="mailto:mikroskeem@mikroskeem.eu">Email</a>
+                            </p>
+                            <p><a href="https://www.youtube.com/channel/UC5lZVmnKCl66RF0oWVJKhdg">Youtube</a>
+                            </p>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>...</h3>
+                        <p class="row">
+                            <h4>...</h4>
+                            <p>...</p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p><span class="pull-left">&copy; Y2Views by mikroskeem &amp; DirolGaming</span>  <span class="pull-right"><a href="https://github.com/mikroskeem/y2views">We are opensouce! :)</a></span>
+            </p>
+        </div>
+    </div>
+    <div id="overlay"><span id="loading"><img src="/static/img/loading4.gif"></img><div style="color: white">Loading<span id="loadingdots"></span>
+    </div>
+    </span>
+    </div>
+    <div class="modal fade" id="devmodal" tabindex="-1" role="dialog" aria-labelledby="devmodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button style="margin-top: 3px; margin-left: 10px;" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="devmodalLabel">Developer menu</h4>
+                    <p style="color:red;">This will be removed in future</p>
+                </div>
+                <div class="modal-body">
+                    <script type="text/javascript">
+                        function cmsgsend() {
+                            var x = $("#cmsgtype").val();
+                            if (x == "i") {
+                                message.info($("#cmsgtxt").val())
+                            } else if (x == "e") {
+                                message.error($("#cmsgtxt").val());
+                            } else if (x == "s") {
+                                message.success($("#cmsgtxt").val());
+                            }
+                        }
+                    </script>
+                    <p>Custom messages:</p>
+                    <p>Type:
+                        <select id="cmsgtype">
+                            <option value="i">Info</option>
+                            <option value="e">Error</option>
+                            <option value="s">Success</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input id="cmsgtxt" type="text" />
+                        <button onClick='cmsgsend()'>Send</button>
+                    </p>
+                    <hr>
+                    <p>Change font:</p>
+                    <p>
+                        <button onClick="ubuntu.yes()">Ubuntu font</button>
+                    </p>
+                    <p>
+                        <button onClick="ubuntu.no()">Josefin font(default)</button>
+                    </p>
+                    <hr>
+                    <p>I don't want to use Developer menu anymore:
+                        <button onClick='localStorage["1mg00dhex0r"]=false;alert("Do reload now ;)");'>I'm sure</button>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
